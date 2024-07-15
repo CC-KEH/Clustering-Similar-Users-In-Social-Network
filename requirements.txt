@@ -1,0 +1,19 @@
+# Python Version 3.9
+
+
+numpy
+pandas
+scikit-learn
+mlflow
+notebook
+python-box
+pyYaml
+ensure
+joblib
+types-pyYaml
+Flask
+Flask-Cors
+tweepy
+s3fs
+python-dotenv
+-e .
