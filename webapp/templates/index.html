@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Pipeline</title>
+</head>
+<body>
+    <h1>Data Pipeline</h1>
+    <button id="runPipeline">Run Pipeline</button>
+    <pre id="output"></pre>
+    <img id="visualization" src="/visualization" alt="Visualization will appear here">
+
+    <script>
+        document.getElementById('runPipeline').addEventListener('click', () => {
+            fetch('/run_pipeline')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+                    // Refresh the visualization image
+                    document.getElementById('visualization').src = '/visualization?' + new Date().getTime();
+                });
+        });
+    </script>
+</body>
+</html>
