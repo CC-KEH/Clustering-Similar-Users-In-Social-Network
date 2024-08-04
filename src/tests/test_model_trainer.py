@@ -1,5 +1,5 @@
 import unittest
-from scripts.model_training import Model_Trainer
+from src.components.model_trainer import Model_Trainer
 import numpy as np
 import pandas as pd
 

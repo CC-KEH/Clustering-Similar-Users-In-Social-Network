@@ -1,5 +1,5 @@
 import unittest
-from scripts.data_ingestion import Data_Ingestion
+from src.components.data_ingestion import Data_Ingestion
 
 class TestDataIngestion(unittest.TestCase):
     def setUp(self):

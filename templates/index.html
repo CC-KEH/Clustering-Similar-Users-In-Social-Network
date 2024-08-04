@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Pipeline</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f4f4f4;
+            background-image: url('{{ url_for("static", filename="images/snc_bg.jpg") }}');
+            background-size: cover;
+        }
+        .container {
+            width: 40%;
+            margin-left: 100px;
+        }
+        h1 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin-top: 70px;
+            color: #000000;
+            font-size: 50px;
+            font-weight: 800;
+        }
+        p {
+            color: #202020;
+            align-items: center;
+        }
+        .step {
+            color: black;
+            text-decoration: none;
+            margin-top: 50px;
+            font-size: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            opacity: 0.5; /* Initially set to half transparent */
+        }
+        .pipeline_button {
+            color: black;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 50px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .step.active {
+            opacity: 1; /* Fully opaque for active steps */
+            color: green; /* Green for completed steps */
+        }
+
+        .pipeline_button:hover {
+            color: #ffffff;
+        }
+
+        .right_container {
+            width: 40%;
+            position: absolute;
+            right: 0;
+        }
+
+        #visualization {
+            width: 100%;
+            margin-top: 300px;
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Clustering Users in a Social Network</h1>
+        <div>
+            <p>The project aims to cluster users in a social network based on their activity data using a Big Data approach. This involves data ingestion, transformation, modeling, and visualization.</p>
+            
+        </div>
+        <div>
+            <!-- Use the form to get the input values, but handle submission with JavaScript -->
+            <form id="pipelineForm">
+                <label>No of Users</label>
+                <input type="number" name="num_users" id="num_users">
+                <label>No of Posts</label>
+                <input type="number" name="num_posts" id="num_posts">
+                <button type="button" class="pipeline_button" onclick="runPipeline()">Run Pipeline</button>
+            </form>
+        </div>
+        <pre id="output"></pre>
+    </div>
+    <script>
+        function runPipeline() {
+            // Get values from input fields
+            const numUsers = document.getElementById('num_users').value;
+            const numPosts = document.getElementById('num_posts').value;
+
+            // Create a JSON object with the input values
+            const data = {
+                num_users: numUsers,
+                num_posts: numPosts
+            };
+
+            // Send the JSON data to the Flask server using fetch
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the JSON response from the server
+                document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

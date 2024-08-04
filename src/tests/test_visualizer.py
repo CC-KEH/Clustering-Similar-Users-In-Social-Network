@@ -1,5 +1,5 @@
 import unittest
-from scripts.visualization import Visualizer
+from src.components.visualization import Visualizer
 import numpy as np
 import pandas as pd
 

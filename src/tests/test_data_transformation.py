@@ -1,6 +1,6 @@
 import unittest
 import pandas as pd
-from scripts.data_transformation import Data_Transformation
+from src.components.data_transformation import Data_Transformation
 
 class TestDataTransformation(unittest.TestCase):
     def setUp(self):
