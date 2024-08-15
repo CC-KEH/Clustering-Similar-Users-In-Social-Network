@@ -13,7 +13,8 @@ def plot_data_points(spark_df):
     
     # Set plot layout for better visualization
     fig.update_layout(autosize=False, width=800, height=600,
-                      margin=dict(l=50, r=50, b=100, t=100, pad=4))
+                      margin=dict(l=50, r=50, b=100, t=100, pad=4),
+                      showlegend=False)  # Hide the legend
     
     # Convert Plotly figure to HTML for rendering
-    return fig.write_html('ingested_data_plot.html')
+    return fig.write_html('static/ingested_data_plot.html')

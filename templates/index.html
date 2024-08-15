@@ -16,8 +16,16 @@
             background-size: cover;
         }
         .container {
-            width: 40%;
-            margin-left: 100px;
+            display: flex;
+            width: 100%;
+        }
+        .left-container {
+            width: 50%;
+            padding: 20px;
+        }
+        .right-container {
+            width: 50%;
+            padding: 20px;
         }
         h1 {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -40,29 +48,38 @@
             opacity: 0.5; /* Initially set to half transparent */
         }
         .pipeline_button {
-            color: black;
+            color: white;
+            background-color: #000000;
+            border: none;
+            padding: 10px 20px;
             cursor: pointer;
             text-decoration: none;
-            margin-top: 50px;
+            margin-top: 20px;
             font-size: 20px;
             font-weight: bold;
+            border-radius: 5px;
+            width: 53%;
         }
-
-        .step.active {
-            opacity: 1; /* Fully opaque for active steps */
-            color: green; /* Green for completed steps */
-        }
-
         .pipeline_button:hover {
-            color: #ffffff;
+            background-color: #0056b3;
         }
-
-        .right_container {
-            width: 40%;
-            position: absolute;
-            right: 0;
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
         }
-
+        label {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 50%;
+        }
         #visualization {
             width: 100%;
             margin-top: 300px;
@@ -72,22 +89,31 @@
 </head>
 <body>
     <div class="container">
-        <h1>Clustering Users in a Social Network</h1>
-        <div>
-            <p>The project aims to cluster users in a social network based on their activity data using a Big Data approach. This involves data ingestion, transformation, modeling, and visualization.</p>
-            
+        <div class="left-container">
+            <h1>Clustering Users in a Social Network</h1>
+            <div>
+                <p>The project aims to cluster users in a social network based on their activity data using a Big Data approach. This involves data ingestion, transformation, modeling, and visualization.</p>
+            </div>
+            <div>
+                <!-- Use the form to get the input values, but handle submission with JavaScript -->
+                <form id="pipelineForm">
+                    <label>No of Users</label>
+                    <input type="number" name="num_users" id="num_users">
+                    <label>No of Posts</label>
+                    <input type="number" name="num_posts" id="num_posts">
+                    <button type="button" class="pipeline_button" onclick="runPipeline()">Run Pipeline</button>
+                </form>
+            </div>
+            <pre id="output"></pre>
         </div>
-        <div>
-            <!-- Use the form to get the input values, but handle submission with JavaScript -->
-            <form id="pipelineForm">
-                <label>No of Users</label>
-                <input type="number" name="num_users" id="num_users">
-                <label>No of Posts</label>
-                <input type="number" name="num_posts" id="num_posts">
-                <button type="button" class="pipeline_button" onclick="runPipeline()">Run Pipeline</button>
-            </form>
+        <div class="right-container">
+            <div id="plots">
+                <h2>Users</h2>
+                <iframe id="initialPlot" width="100%" height="400px"></iframe>
+                <h2>Clusters</h2>
+                <iframe id="clusteredPlot" width="100%" height="400px"></iframe>
+            </div>
         </div>
-        <pre id="output"></pre>
     </div>
     <script>
         function runPipeline() {
@@ -113,6 +139,8 @@
             .then(data => {
                 // Handle the JSON response from the server
                 document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+                document.getElementById('initialPlot').src = data.initial_plot_url;
+                document.getElementById('clusteredPlot').src = data.clustered_plot_url;
             })
             .catch(error => console.error('Error:', error));
         }

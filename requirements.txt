@@ -4,16 +4,13 @@ numpy
 pandas
 scikit-learn
 notebook
-python-box
 pyYaml
 ensure
-joblib
 types-pyYaml
 Flask
 Flask-Cors
-s3fs
 python-dotenv
-selenium
 faker
 pyspark
+mlflow
 -e .

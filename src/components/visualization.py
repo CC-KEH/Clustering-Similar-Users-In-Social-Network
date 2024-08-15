@@ -32,6 +32,6 @@ class Visualizer:
 
         # fig.show()
 
-        fig.write_html('clusters_plot.html')
+        fig.write_html('static/clusters_plot.html')
         
     
