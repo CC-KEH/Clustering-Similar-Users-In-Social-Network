@@ -1,6 +1,6 @@
 # Clustering Similar Users and Social Network
 
-This project aims to ingest, transform, and visualize synthetic user activity data, followed by clustering users based on their activity patterns using K-Means clustering. The project leverages PySpark for data processing, Airflow for workflow orchestration, MLflow for experiment tracking, and AWS for deployment and storage.
+This project aims to ingest, transform, and visualize synthetic user activity data, followed by clustering users based on their activity patterns using K-Means clustering. The project leverages PySpark for data processing and Flask for local deployment.
 
 ## Table of Contents
 
@@ -14,10 +14,6 @@ This project aims to ingest, transform, and visualize synthetic user activity da
     - [Data\_Transformation](#data_transformation)
     - [Model\_Trainer](#model_trainer)
     - [Visualizer](#visualizer)
-  - [Integration with PySpark](#integration-with-pyspark)
-  - [Integration with Airflow](#integration-with-airflow)
-  - [Integration with MLflow](#integration-with-mlflow)
-  - [Integration with AWS](#integration-with-aws)
   - [Example](#example)
   - [License](#license)
 
@@ -26,23 +22,17 @@ This project aims to ingest, transform, and visualize synthetic user activity da
 1. Clone the repository:
 
     ```sh
-    git clone https://github.com/CC-KEH/user-activity-clustering.git
+    git clone https://github.com/CC-KEH/Clustering-Similar-Users-In-Social-Network.git
     ```
 
-2. Navigate to the project directory:
-
-    ```sh
-    cd user-activity-clustering
-    ```
-
-3. Create a virtual environment and activate it:
+2. Create a virtual environment and activate it:
 
     ```sh
     conda create -p venv python=3.9
     conda activate venv/
     ```
 
-4. Install the required packages:
+3. Install the required packages:
 
     ```sh
     pip install -r requirements.txt
@@ -50,10 +40,16 @@ This project aims to ingest, transform, and visualize synthetic user activity da
 
 ## Usage
 
-To run the project, execute the `main.py` script:
+1. To run the project, execute the `setup.py` script this will create the package:
 
 ```sh
-python main.py
+    python setup.py
+```
+
+2. Now, execute `application.py` script:
+
+```sh
+    python application.py
 ```
 
 ## Project Structure
@@ -61,16 +57,31 @@ python main.py
 The project directory is organized as follows:
 
 ```plaintext
-user-activity-clustering/
-│
-├── dags/
-│   └── user_activity_dag.py
-├── scripts/
-│   ├── data_ingestion.py
-│   ├── data_transformation.py
-│   ├── model_trainer.py
-│   └── visualizer.py
+
+├── src/
+│   ├── components/
+│   │   ├── data_ingestion.py
+│   │   ├── data_transformation.py
+│   │   ├── model_trainer.py
+│   │   └── visualization.py
+│   ├── pipelines/
+│   │   └── prediction.py
+│   │   └── stage_01_data_ingestion.py
+│   │   └── stage_02_data_transformation.py
+│   │   └── stage_03_model_trainer.py
+│   │   └── stage_04_visualization.py
+│   ├── tests/
+│   │   ├── test_data_ingestion.py
+│   │   ├── test_data_transformation.py
+│   │   ├── test_model_trainer.py
+│   │   └── test_web_app.py
+│   │   └── testing_pipeline.py
+│   └── utils/
+│       ├── __init__.py
+│       └── common.py
+├── application.py
 ├── main.py
+├── setup.py
 ├── requirements.txt
 ├── README.md
 └── ...
@@ -103,56 +114,6 @@ Handles the visualization of the results.
 
 - `visualize(self, pca_features, user_activity)`: Visualizes the user clusters in a scatter plot.
 - `analyze_clusters(self, user_activity)`: Analyzes and prints the mean characteristics of each cluster.
-
-## Integration with PySpark
-
-To handle large datasets efficiently, we use PySpark for data processing.
-
-1. Install PySpark:
-
-    ```sh
-    pip install pyspark
-    ```
-
-2. Update your data ingestion and transformation scripts to use PySpark DataFrames.
-
-## Integration with Airflow
-
-Airflow is used for orchestrating the workflow of data ingestion, transformation, and model training.
-
-1. Install Airflow:
-
-    ```sh
-    pip install apache-airflow
-    ```
-
-2. Create a DAG file (`user_activity_dag.py`) under the `dags/` directory.
-
-3. Define tasks for each step in the workflow and set up task dependencies.
-
-## Integration with MLflow
-
-MLflow is used for experiment tracking and model management.
-
-1. Install MLflow:
-
-    ```sh
-    pip install mlflow
-    ```
-
-2. Update your model training script to log metrics and models with MLflow.
-
-## Integration with AWS
-
-AWS is used for deployment and storage.
-
-1. Install the AWS SDK:
-
-    ```sh
-    pip install boto3
-    ```
-
-2. Set up AWS credentials and configure services like S3 for storage and EC2 for deployment.
 
 ## Example
 
@@ -190,3 +151,5 @@ The `main.py` script provides an example of how to use the classes and methods. 
 ## License
 
 This project is licensed under the MIT License.
+
+---
