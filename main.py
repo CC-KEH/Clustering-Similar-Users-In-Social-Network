@@ -57,7 +57,7 @@ def visualize(pca_features, user_activity):
         raise e
 
 if __name__ == '__main__':
-    spark_df = data_ingestion()
+    spark_df = data_ingestion(num_users=30,num_posts=10)
     pca_features, user_activity = data_transformation(spark_df)
     pca_features, user_activity = model_trainer(pca_features, user_activity)
     visualize(pca_features, user_activity)

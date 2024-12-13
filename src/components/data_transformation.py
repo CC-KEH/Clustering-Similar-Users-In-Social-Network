@@ -38,4 +38,8 @@ class Data_Transformation:
         result_df = transformed_data.select("user_id", "pca_features")
         # Convert Spark DataFrame to Pandas DataFrame for further use
         pca_features = result_df.toPandas()
+        user_activity.show()
+        print(f"Number of unique users in user_activity: {user_activity.select('user_id').distinct().count()}")
+        print(f"Number of rows in PCA features: {len(pca_features)}")
+
         return pca_features, user_activity.toPandas()

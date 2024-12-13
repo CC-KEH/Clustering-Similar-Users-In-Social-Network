@@ -51,6 +51,6 @@ def save_to_csv(df, file_path):
     
 if __name__ == '__main__':
     data_ingestion = Data_Ingestion()
-    synthetic_data = data_ingestion.generate_synthetic_data(10, 100)
-    synthetic_data.to_csv('synthetic_data.csv', index=False)
+    synthetic_data = data_ingestion.initiate_data_ingestion(5, 10)
+    save_to_csv(synthetic_data, 'synthetic_data')
     print('Synthetic data generated and saved to synthetic_data.csv')
